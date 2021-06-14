@@ -6,20 +6,21 @@ using System;
 
 public class Grab : OVRGrabber
 {
-    private bool isGrabbing = false;
-    private bool insideObject = false;
+    private bool isGrabbing;
+    private bool insideObject;
     private Vector3 prevPost;
     private Quaternion prevRot;
     private OVRHand m_hand;
-    private float pinchThreshold = 0.5f;
-    private float prePinchThreshold;
-    private HandDetector handDetector;
+    private float pinchThreshold = 0.6f;
+    //private HandDetector handDetector;
     
     protected override void Start()
     {
         Debug.Log("start!");
         base.Start();
         m_hand = GetComponent<OVRHand>();
+        isGrabbing = false;
+        insideObject = false;
     }
 
     
@@ -32,13 +33,6 @@ public class Grab : OVRGrabber
         if (!(insideObject))
             return;
 
-        GrabCheck();
-
-        if (!isGrabbing)
-        {
-            Rigidbody rigidbody = handDetector.gameObject.GetComponent<Rigidbody>();
-            rigidbody.isKinematic = false;
-        }
 
         if (isGrabbing)
         {
@@ -50,38 +44,54 @@ public class Grab : OVRGrabber
 
     }
 
-    public void GrabCheck()
+    public void InsideObjectTurnOn()
     {
-        float pinchStrength = m_hand.GetFingerPinchStrength(OVRHand.HandFinger.Index);
-        //Debug.Log(pinchStrength);
+        insideObject = true;
+    }
 
+    public void InsideObjectTurnOff()
+    {
+        insideObject = false;
+    }
 
-        if (pinchStrength >= pinchThreshold)
+    public void GrabStart()
+    {
+        if(!(insideObject))
         {
-            Debug.Log("Grab Grabbing");
-            isGrabbing = true;
-            
-            if (m_grabbedObj == null && m_grabCandidates.Count > 0 && isGrabbing)
-            {
-                Debug.Log("grabbing");
-                GrabBegin();
-            }
-
+            print("아직!");
         }
-        else
+        if (!(insideObject) && (isGrabbing))
         {
-            Debug.Log("Grab Not Grabbing");
-            isGrabbing = false;
+            //print("아직!");
+            return;
+        }
+        
             
-            if (m_grabbedObj != null && !(isGrabbing))
-            {
-                SetPlayerIgnoreCollision(m_grabbedObj.gameObject, false);
-                Debug.Log("not grabbing");
-                GrabEnd2();
-            }
+        Debug.Log("Grab Grabbing");
+        isGrabbing = true;
 
+        if (m_grabbedObj == null && m_grabCandidates.Count > 0 && isGrabbing)
+        {
+            Debug.Log("grabbing");
+            GrabBegin();
         }
     }
+
+    public void GrabFinish()
+    {
+        if (!(insideObject)&&!(isGrabbing))
+            return;
+        Debug.Log("Grab Not Grabbing");
+        isGrabbing = false;
+
+        if (m_grabbedObj != null && !(isGrabbing))
+        {
+            SetPlayerIgnoreCollision(m_grabbedObj.gameObject, false);
+            Debug.Log("not grabbing");
+            GrabEnd2();
+        }
+    }
+
 
     protected override void GrabBegin()
     {
@@ -89,57 +99,6 @@ public class Grab : OVRGrabber
     }
 
     
-
-    public void OnTriggerEnter(Collider otherCollider)
-    {
-         // Get the grab trigger
-         OVRGrabbable grabbable = otherCollider.GetComponent<OVRGrabbable>() ?? otherCollider.GetComponentInParent<OVRGrabbable>();
-         if (grabbable == null) return;
-
-         // Add the grabbable
-         int refCount = 0;
-         m_grabCandidates.TryGetValue(grabbable, out refCount);
-         m_grabCandidates[grabbable] = refCount + 1;
-
-         handDetector = otherCollider.gameObject.GetComponent<HandDetector>();
-         insideObject = true;
-    }
-
-    void OnTriggerExit(Collider otherCollider)
-    {
-
-        OVRGrabbable grabbable = otherCollider.GetComponent<OVRGrabbable>() ?? otherCollider.GetComponentInParent<OVRGrabbable>();
-        if (grabbable == null) return;
-
-        if (m_grabbedObj != null && !(isGrabbing))
-        {
-            GrabEnd2();
-        }
-
-        // Remove the grabbable
-        int refCount = 0;
-        bool found = m_grabCandidates.TryGetValue(grabbable, out refCount);
-        if (!found)
-        {
-            return;
-        }
-
-        if (refCount > 1)
-        {
-            m_grabCandidates[grabbable] = refCount - 1;
-        }
-        else
-        {
-            m_grabCandidates.Remove(grabbable);
-        }
-
-
-        insideObject = false;
-        isGrabbing = false;
-        handDetector = null;
-
-    }
-
 
     public void GrabEnd2()
     {
@@ -154,10 +113,10 @@ public class Grab : OVRGrabber
         Vector3 angularVelocity = (transform.parent.eulerAngles - prevRot.eulerAngles)/Time.deltaTime;
         */
         
-        Vector3 linearVelocity = (transform.position - prevPost)/Time.deltaTime; //속도 = (변위)/시간
-        Vector3 angularVelocity = (transform.rotation.eulerAngles - prevRot.eulerAngles)/Time.deltaTime;
+        Vector3 linearVelocity = (transform.position - prevPost); //속도 = (변위)/시간
+        Vector3 angularVelocity = (transform.rotation.eulerAngles - prevRot.eulerAngles);
         
-        GrabbableRelease(linearVelocity, angularVelocity);
+        GrabbableRelease(new Vector3(0,0,0), new Vector3(0,0,0));
         GrabVolumeEnable(true);
     }
 

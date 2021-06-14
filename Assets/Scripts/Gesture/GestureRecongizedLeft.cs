@@ -36,7 +36,19 @@ public class GestureRecongizedLeft : MonoBehaviour
             {
                 GameObject.FindWithTag("GR").GetComponent<GestureAction>().GoStraight();
             }
+            if (currentGesture.name.Equals("Left_rock_v1") || currentGesture.name.Equals("Left_rock_v2"))
+            {
+                print("left rock");
+                GameObject leftHand = GameObject.FindWithTag("LeftHand");
+                leftHand.GetComponent<Grab>().GrabStart();
+            }
 
+            if (currentGesture.name.Equals("Left_paper"))
+            {
+                print("left paper");
+                GameObject leftHand = GameObject.FindWithTag("LeftHand");
+                leftHand.GetComponent<Grab>().GrabFinish();
+            }
             preGesture = currentGesture;
         }
     }

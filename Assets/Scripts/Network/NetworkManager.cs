@@ -36,10 +36,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         base.OnJoinedRoom();
     }
 
-    public override void OnPlayerEnteredRoom(Player newPlayer)
+    public void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.Log("new Player Entered Room");
-        base.OnPlayerEnteredRoom(newPlayer);
+        //base.OnPlayerEnteredRoom(newPlayer);
     }
 
     // Update is called once per frame
