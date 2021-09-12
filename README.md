@@ -1,8 +1,5 @@
-# HandTrackingGrab2
+# HandTrackingGrab
 HandTracking  Grab 연구 
-초반에 pinch를 이용해서 grab이 되도록, 접근하였습니다.       
-pinch로 grab하는 것이 사용자들한테 많이 힘들 것 같아서,  
-gesture 방식으로 grab이 되도록 고쳤습니다.        
-그랬더니, 이전보다는 더 개선이 되어졌습니다.             
-그래서 앞으로 프로젝트에서는          
-주먹 gesture를 할 때 grab이 되도록 코드를 작성했습니다.       
+주먹 제스처를 취할 때 Grab이 되도록 메커니즘을 변경하였습니다.         
+Grab코드를 왼쪽인 경우와 오른쪽인 경우로 나누었습니다.      
+(다른 팀원(두리)이 개발한 것) Grab 시 손동작을 지정해주었습니다.     
