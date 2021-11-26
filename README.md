@@ -54,7 +54,7 @@ pinch로 grab하는 것이 사용자 입장에서는 많이 힘들 것 같아서
         1) 하드웨어적인 문제를 고칠 수 없어, 소프트웨어적으로 최대한 개선을 하는 방식을 선택했습니다.     
         2) 카메라가 인식문제로 물건이 손에서 벗어나면 물건의 rigidbody 상태를 grab하기 전 상태로 바꾸었습니다.       
                  (해당 코드: adjustGrabbable)
-* 물건의 rigidbody가 isKinematic이 true일 때 다시 물건을 잡게 되면 grab이 되지 않는 현상이 발생했습니다.
+* 물건의 rigidbody가 isKinematic이 true일 때 다시 물건을 잡게 되면 grab이 되지 않는 현상이 발생했습니다.                         
   --> 해결책 : 물건을 다시 잡으려고 할 때 m_grabCandidates 변수에 접근해서 잡으려고 물체의 collider를 추가했습니다.   
                   (해당 코드: GrabLeft.cs, GrabRight.cs - AddCandidates 함수 / Bronchial.cs, Stent,cs - update 함수 일부분)
          
