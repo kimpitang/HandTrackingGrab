@@ -13,7 +13,7 @@ pinch로 grab하는 것이 사용자 입장에서는 많이 힘들 것 같아서
 
 * LocationRest는 grab이 가능한 물건이 땅으로 떨어졌을 때 다시 처음 위치로 옮겨주는 기능을 서술한 코드입니다.
 
-* Part~과 Point~관련 코드는 deco 씬에서 grab 할 때 사용하는 코드입니다. 
+* Part 과 Point 관련 코드는 deco 씬에서 grab 할 때 사용하는 코드입니다. 
 
 * Rope은 기본 골격은 참조했지만 Rope에서 사용하는 grab은 여기서 개발한 grab을 사용합니다.
 
