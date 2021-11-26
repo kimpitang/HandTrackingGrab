@@ -45,7 +45,7 @@ pinch로 grab하는 것이 사용자 입장에서는 많이 힘들 것 같아서
 
 * 물건을 grab한 상테이서 물체를 파괴 시 OVRGrabber 내에 있는 ClosestPointOnBounds 관련 오류와       
   MoveGrabbedObject 관련 오류가 발생합니다.          
-  --> 해결책: 물건 파괴 시 m_grabCandidates 변수에 접근해서 파괴할 물건의 collider를 제거했습니다.
+  --> 해결책: 물건 파괴 시 m_grabCandidates 변수에 접근해서 파괴할 물건의 collider를 제거했습니다.                  
               (해당 코드: GrabLeft.cs, GrabRight.cs - RemoveCandidates 함수 / PartDestroy.cs / TutorialGrabCheck / TutorialThrowCheck.cs / Rope.cs)
 
 * 오큘러스 카메라 인식 문제로 카메라가 손에 잡고 있는 물건을 제대로 캡쳐하지 못해서    
