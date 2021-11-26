@@ -1,10 +1,14 @@
 # HandTrackingGrab
 ## HandTracking  Grab 연구 개요
+HandTracking 게임을 만들기 위해서는 플레이어가 물건을 잡는 과정이 필요하다고 여겨지게 되면서,     
+Grab을 만들게 되었습니다.       
+       
 
-초반에 pinch를 이용해서 grab이 되도록 만들었으나,           
-pinch로 grab하는 것이 사용자 입장에서는 많이 힘들 것 같아서       
+## HandTracking Grab 연구 역사(?)
+초반에 pinch를 이용해서 grab이 되도록 만들었으나,            
+pinch로 grab하는 것이 사용자 입장에서는 많이 힘들 것 같아서           
 주먹을 쥔 상태에서 grab이 되도록 고쳤습니다.       
-                
+
 ## 주요 기능 설명
 
 * GrabLeft, GrabRight는 handtracking 상태에서 grab이 가능하도록 만든 코드입니다.
