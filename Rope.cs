@@ -1,4 +1,6 @@
-﻿using System.Collections;
+//https://github.com/cannon/TrueHandling 참고 및 사용
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
